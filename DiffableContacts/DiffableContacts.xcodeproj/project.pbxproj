@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C24EC0AC240091D6002F1FAB /* LBTATools in Frameworks */ = {isa = PBXBuildFile; productRef = C24EC0AB240091D6002F1FAB /* LBTATools */; };
 		E5EFA0F723FB21B00012FAB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFA0F623FB21B00012FAB1 /* AppDelegate.swift */; };
 		E5EFA0F923FB21B00012FAB1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFA0F823FB21B00012FAB1 /* SceneDelegate.swift */; };
 		E5EFA0FB23FB21B00012FAB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFA0FA23FB21B00012FAB1 /* ContentView.swift */; };
@@ -31,12 +32,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C24EC0AC240091D6002F1FAB /* LBTATools in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C24EC0A924008B33002F1FAB /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		E5EFA0EA23FB21B00012FAB1 = {
 			isa = PBXGroup;
 			children = (
@@ -59,6 +68,7 @@
 				E5EFA0F623FB21B00012FAB1 /* AppDelegate.swift */,
 				E5EFA0F823FB21B00012FAB1 /* SceneDelegate.swift */,
 				E5EFA0FA23FB21B00012FAB1 /* ContentView.swift */,
+				C24EC0A924008B33002F1FAB /* New Group */,
 				E5EFA0FC23FB21B10012FAB1 /* Assets.xcassets */,
 				E5EFA10123FB21B10012FAB1 /* LaunchScreen.storyboard */,
 				E5EFA10423FB21B10012FAB1 /* Info.plist */,
@@ -91,6 +101,9 @@
 			dependencies = (
 			);
 			name = DiffableContacts;
+			packageProductDependencies = (
+				C24EC0AB240091D6002F1FAB /* LBTATools */,
+			);
 			productName = DiffableContacts;
 			productReference = E5EFA0F323FB21B00012FAB1 /* DiffableContacts.app */;
 			productType = "com.apple.product-type.application";
@@ -119,6 +132,9 @@
 				Base,
 			);
 			mainGroup = E5EFA0EA23FB21B00012FAB1;
+			packageReferences = (
+				C24EC0AA240091D6002F1FAB /* XCRemoteSwiftPackageReference "LBTATools" */,
+			);
 			productRefGroup = E5EFA0F423FB21B00012FAB1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -342,6 +358,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C24EC0AA240091D6002F1FAB /* XCRemoteSwiftPackageReference "LBTATools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bhlvoong/LBTATools.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.17;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C24EC0AB240091D6002F1FAB /* LBTATools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C24EC0AA240091D6002F1FAB /* XCRemoteSwiftPackageReference "LBTATools" */;
+			productName = LBTATools;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E5EFA0EB23FB21B00012FAB1 /* Project object */;
 }

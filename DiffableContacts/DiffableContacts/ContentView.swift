@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import LBTATools
 
 enum SectionType {
     case ceo, peasents
@@ -16,12 +17,48 @@ struct Contact: Hashable {
     let name: String
 }
 
+class ContactViewModel: ObservableObject {
+    @Published var name = ""
+}
+
+struct ContactRowView: View {
+    @ObservedObject var viewModel: ContactViewModel
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "person.fill")
+            Text(viewModel.name)
+            Spacer()
+            Image(systemName: "star")
+        }.padding(20)
+    }
+}
+
+class ContactCell: UITableViewCell {
+    let viewModel = ContactViewModel()
+    lazy var row = ContactRowView(viewModel: viewModel)
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        let hostingController = UIHostingController(rootView: row)
+        addSubview(hostingController.view)
+        hostingController.view.fillSuperview()
+        
+        viewModel.name = "My Contact"
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class DiffableTableViewController: UITableViewController {
     
     // UITableViewDiffableDataSource
     lazy var source: UITableViewDiffableDataSource<SectionType, Contact> = .init(tableView: self.tableView) { (_, indexPath, contact) -> UITableViewCell? in
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = contact.name
+        let cell = ContactCell(style: .default, reuseIdentifier: nil)
+        cell.viewModel.name = contact.name
         return cell
     }
     
