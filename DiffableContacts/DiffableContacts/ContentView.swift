@@ -42,6 +42,44 @@ struct ContactRowView: View {
     }
 }
 
+struct ContactFormView: View {
+    @State private var name = ""
+    @State private var sectionType = SectionType.ceo
+    
+    var didAddContact: (String, SectionType) -> () = { _, _ in }
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            TextField("Name", text: $name)
+            
+            Picker(selection: $sectionType, label: Text("Doesn't metter")) {
+                Text("CEO").tag(SectionType.ceo)
+                Text("Peasants").tag(SectionType.peasents)
+            }.pickerStyle(SegmentedPickerStyle())
+            
+            Button(action: {
+                self.didAddContact(self.name, self.sectionType)
+            }) {
+                Spacer()
+                Text("Add").foregroundColor(.white)
+                Spacer()
+            }.padding().background(Color.blue)
+                .cornerRadius(5)
+            
+            Button(action: {
+                
+            }) {
+                Spacer()
+                Text("Cancel").foregroundColor(.white)
+                Spacer()
+            }.padding().background(Color.red)
+                .cornerRadius(5)
+            
+            Spacer()
+        }.padding()
+    }
+}
+
 class ContactCell: UITableViewCell {
     let viewModel = ContactViewModel()
     lazy var row = ContactRowView(viewModel: viewModel)
@@ -81,7 +119,19 @@ class DiffableTableViewController: UITableViewController {
         super.viewDidLoad()
         navigationItem.title = "Contacts"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = .init(title: "Add Contact", style: .plain, target: self, action: #selector(handleAdd))
         setupSource()
+    }
+    
+    @objc private func handleAdd() {
+        let formView = ContactFormView { (name, sectionType) in
+            self.dismiss(animated: true)
+            var snapshot = self.source.snapshot()
+            snapshot.appendItems([.init(name: name)], toSection: sectionType)
+            self.source.apply(snapshot)
+        }
+        let hostingController = UIHostingController(rootView: formView)
+        present(hostingController, animated: true)
     }
     
     private func setupSource() {
@@ -131,6 +181,12 @@ class DiffableTableViewController: UITableViewController {
         }
         
         return .init(actions: [deleteAction, favoriteAction])
+    }
+}
+
+struct ContactFormPreview: PreviewProvider {
+    static var previews: some View {
+        ContactFormView()
     }
 }
 
